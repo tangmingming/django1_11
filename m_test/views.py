@@ -5,6 +5,11 @@ from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
+from django.views.generic import ListView, DetailView
+
+
+from .models import Publisher, Author, Book
+
 
 from .models import Book
 
@@ -32,3 +37,20 @@ class Index_4(View):
 @method_decorator(login_required, name="dispatch")
 class Index_5(Index_4):
     greeting = "Welcome"
+
+    def dispatch(self, request, *args, **kwargs):
+        return HttpResponse("Custom dispatch")
+
+
+class PublisherList(ListView):
+    model = Publisher
+    context_object_name = "my_favorite_publishers"
+
+
+class PublisherDetail(DetailView):
+    model = Publisher
+
+    def get_content_data(self, **kwargs):
+        context = super(PublisherDetail, self).get_context_data(**kwargs)
+        context["book_list"] = Book.objects.all()
+        return context

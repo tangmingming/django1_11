@@ -14,4 +14,6 @@ urlpatterns = [
     url(r'^index_4', Index_4.as_view(), name="index_4"),
     url(r'^index_5', Index_5.as_view(), name="index_5"),
     url(r'^index_6', Index_5.as_view(greeting="index_6"), name="index_6"),
+    url(r'^publishere/list$', PublisherList.as_view()),
+    url(r'^publishere/detail$', PublisherDetail.as_view()),
 ]
